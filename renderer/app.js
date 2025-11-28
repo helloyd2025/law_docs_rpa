@@ -35,8 +35,27 @@ async function refreshFileList() {
 
     files.forEach(f => {
         const li = document.createElement("li");
-        li.textContent = f;
+        // li.textContent = f;
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
+
+        const text = document.createElement("span");
+        text.textContent = f;
+
+        const removeBtn = document.createElement("span");
+        removeBtn.textContent = "✖";
+        removeBtn.style.cursor = "pointer";
+
         li.onclick = () => appendLog(`선택됨: ${f}`);
+        removeBtn.onclick = (e) => {
+            e.stopPropagation();
+
+            // 실제 파일 삭제
+        };
+
+        li.appendChild(text);
+        li.appendChild(removeBtn);
         list.appendChild(li);
     });
     appendLog("파일 목록 갱신 완료");
