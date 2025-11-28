@@ -48,10 +48,16 @@ async function refreshFileList() {
         removeBtn.style.cursor = "pointer";
 
         li.onclick = () => appendLog(`선택됨: ${f}`);
-        removeBtn.onclick = (e) => {
+        removeBtn.onclick = async (e) => {
             e.stopPropagation();
-
-            // 실제 파일 삭제
+            
+            let result = await window.electronAPI.deleteFile(f);
+            if (result.success) {
+                appendLog(`삭제 성공: ${f}`);
+            } else {
+                appendLog(`삭제 실패: ${result.error}`)
+            }
+            li.remove();
         };
 
         li.appendChild(text);

@@ -63,6 +63,15 @@ ipcMain.handle("save-dropped-file", async (event, fileData) => {
     }
 });
 
+ipcMain.handle("delete-file", async (event, fileName) => {
+    try {
+        await fs.promises.rm(`${fixedPath}/${fileName}`, { recursive: true, force: true });
+        return { success: true };
+    } catch (err) {
+        return { success: false, error: err.message }
+    }
+});
+
 
 // --- Ollama 로컬 모델 목록 가져오기 ---
 ipcMain.handle("get-local-models", async () => {
