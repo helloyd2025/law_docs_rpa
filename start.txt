@@ -1,3 +1,0 @@
-npm init -y # 이건 생략
-npm install electron --save-dev
-npm start
