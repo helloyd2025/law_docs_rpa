@@ -1,2 +1,8 @@
+# env var
+.env
+
+# dependencies
 node_modules/
+
+# user path
 docs/

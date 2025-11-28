@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
 const { ipcMain } = require("electron");
 const fs = require("fs");
 // const fsp = require("fs/promises");
-const fixedPath = "D:/client/docs"; // ★ 바꿔도 됨
+const fixedPath = process.env.DOCS_PATH; // 사용자 고정 경로
 
 const { exec } = require("child_process");
 
