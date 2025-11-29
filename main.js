@@ -19,7 +19,7 @@ function createWindow() {
         },
     });
 
-    win.loadFile("renderer/index.html");
+    win.loadFile("renderer/index/index.html");
 
     // 개발자 도구 자동 오픈 (원하면 주석처리)
     // win.webContents.openDevTools();
