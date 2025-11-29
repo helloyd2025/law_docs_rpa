@@ -1,6 +1,9 @@
+let pwd;
+
 document.addEventListener('DOMContentLoaded', async () => {
+    pwd = '';
     await loadModels();
-    await refreshFileList('');
+    await refreshFileList(pwd);
 });
 
 async function loadModels() {
@@ -12,18 +15,38 @@ async function loadModels() {
 async function refreshFileList(dirPath) {
     const files = await window.api.file.list(dirPath);
     const list = document.getElementById('file-list');
-    list.innerHTML = files.map(f => `
+    if (dirPath === '') {
+        list.innerHTML = '';
+    } else {
+        list.innerHTML = `<li onclick="selectFile('..')">..</li>`;
+    }
+    list.innerHTML += files.map(f => `
         <li onclick="selectFile('${f}')">
             ${f}
-            <span onclick="event.stopPropagation(); deleteFile('${f}')">✖</span>
+            <span onclick="event.stopPropagation(); deleteFile('${f}', '${dirPath}')">✖</span>
         </li>
     `).join('');
 }
 
-async function deleteFile(name) {
-    await window.api.file.delete(name);
-    appendLog(`삭제됨: ${name}`);
-    refreshFileList('');
+async function selectFile(name) { // 상위 폴더 이동 작업 중
+    // appendLog(name);
+    if (name === '..') {
+        pwd = name.split('/').pop().join('/');
+    } else {
+        pwd = `${pwd}/${name}`;
+    }
+    // appendLog('pwd:'+pwd);
+    await refreshFileList(pwd);
+
+    const frameTitle = document.getElementById('file-wd');
+    frameTitle.textContent = pwd === '' ? '작업 리스트' : pwd;
+}
+
+async function deleteFile(name, relativePath) {
+    const fullPath = relativePath ? `${relativePath}/${name}` : name;
+    await window.api.file.delete(fullPath);
+    appendLog(`삭제됨: ${fullPath}`);
+    refreshFileList(relativePath);
 }
 
 function appendLog(msg) {
@@ -82,14 +105,14 @@ fileFrame.addEventListener("drop", async (e) => {
 
         if (entry.isFile) {
             const file = await getFileFromEntry(entry);
-            await saveFile(file, "");
+            await saveFile(file, pwd);
         } else if (entry.isDirectory) {
-            await traverseDirectory(entry, "");  // 재귀 시작
+            await traverseDirectory(entry, pwd);  // 재귀 시작
         }
     }
 
     appendLog("모든 파일 및 폴더 복사 완료!");
-    refreshFileList('');
+    refreshFileList(pwd);
 });
 
 // FileEntry → File 객체 변환
