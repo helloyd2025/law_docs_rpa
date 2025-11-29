@@ -45,7 +45,7 @@ document.getElementById("model-select").addEventListener("change", (e) => {
     // 로고 이미지 파일명 규칙: assets/{modelName}.png
     const logoPath = `assets/${modelName}.png`;
     const img = document.getElementById("model-logo");
-    img.src = logoPath;
+    img.src = `../../../${logoPath};`
 
     // 존재하지 않는 경우 기본 이미지 사용
     img.onerror = () => { img.src = "assets/deepseek.png"; }
