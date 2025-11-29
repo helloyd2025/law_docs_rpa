@@ -1,6 +1,7 @@
+const { app } = require('electron');
 const fs = require('fs').promises;
 const path = require('path');
-const fixedPath = process.env.DOCS_PATH;
+const fixedPath = path.join(app.getPath('userData'), 'docs');
 
 class FileService {
     async list(dirPath) {
