@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     await loadModels();
-    await refreshFileList();
+    await refreshFileList('');
 });
 
 async function loadModels() {
@@ -9,8 +9,8 @@ async function loadModels() {
     select.innerHTML = models.map(m => `<option>${m}</option>`).join('');
 }
 
-async function refreshFileList() {
-    const files = await window.api.file.list();
+async function refreshFileList(dirPath) {
+    const files = await window.api.file.list(dirPath);
     const list = document.getElementById('file-list');
     list.innerHTML = files.map(f => `
         <li onclick="selectFile('${f}')">
@@ -23,7 +23,7 @@ async function refreshFileList() {
 async function deleteFile(name) {
     await window.api.file.delete(name);
     appendLog(`삭제됨: ${name}`);
-    refreshFileList();
+    refreshFileList('');
 }
 
 function appendLog(msg) {
@@ -89,7 +89,7 @@ fileFrame.addEventListener("drop", async (e) => {
     }
 
     appendLog("모든 파일 및 폴더 복사 완료!");
-    refreshFileList();
+    refreshFileList('');
 });
 
 // FileEntry → File 객체 변환

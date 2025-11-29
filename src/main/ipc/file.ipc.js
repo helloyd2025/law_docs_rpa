@@ -1,8 +1,8 @@
 const { ipcMain } = require('electron');
 const fileService = require('../services/FileService');
 
-ipcMain.handle('file:list', async () => {
-    return await fileService.list();
+ipcMain.handle('file:list', async (event, dirPath) => {
+    return await fileService.list(dirPath);
 });
 
 ipcMain.handle('file:save', async (event, fileData) => {

@@ -3,9 +3,9 @@ const path = require('path');
 const fixedPath = process.env.DOCS_PATH;
 
 class FileService {
-    async list() {
+    async list(dirPath) {
         try {
-            return await fs.readdir(fixedPath);
+            return await fs.readdir(path.join(fixedPath, dirPath));
         } catch (err) {
             throw new Error(`폴더 읽기 실패: ${err.message}`);
         }
