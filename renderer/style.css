@@ -31,23 +31,27 @@ header {
 
 /* ---------------- Main Layout ---------------- */
 main {
-    flex: 1;
+    height: calc(100vh - 120px);
+    gap: 20px;
     display: flex;
     padding: 10px;
     box-sizing: border-box;
 }
 
 #file-frame {
-    flex: 3;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     background: #fff;
     padding: 15px;
     border-radius: 4px;
-    overflow-y: auto;
 }
 
 #file-frame ul {
     list-style: none;
     padding: 0;
+    flex: 1;
+    overflow-y: auto;
 }
 
 #file-frame li {
@@ -63,15 +67,17 @@ main {
 /* ---------------- Sidebar ---------------- */
 #sidebar {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     margin-left: 10px;
     background: #ffffff;
     padding: 15px;
     border-radius: 4px;
-    overflow-y: auto;
     max-width: 320px;
 }
 
 #log-container {
+    flex: 1;
     height: 100%;
     overflow-y: auto;
     font-size: 13px;
