@@ -42,4 +42,4 @@ class DeviceService {
     }
 }
 
-module.exports = new DeviceId();
+module.exports = new DeviceService();
