@@ -22,6 +22,7 @@ app.whenReady().then(() => {
     require('./ipc/file.ipc');
     require('./ipc/ollama.ipc');
     require('./ipc/analysis.ipc');
+    require('./ipc/device.ipc')
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();

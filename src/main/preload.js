@@ -15,5 +15,8 @@ contextBridge.exposeInMainWorld('api', {
     analysis: {
         extract: (files) => ipcRenderer.invoke('analysis:extract', files),
     },
+    device: {
+        getUUID: () => ipcRenderer.invoke('device:get-uuid'),
+    },
     log: (msg) => ipcRenderer.send('log', msg),
 });
