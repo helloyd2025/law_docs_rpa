@@ -48,13 +48,16 @@ main {
 }
 
 #file-frame ul {
+    flex: 1;
     list-style: none;
     padding: 0;
-    flex: 1;
     overflow-y: auto;
 }
 
 #file-frame li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 6px 8px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
@@ -79,9 +82,9 @@ main {
 #log-container {
     flex: 1;
     height: 100%;
-    overflow-y: auto;
     font-size: 13px;
     white-space: pre-wrap;
+    overflow-y: auto;
 }
 
 /* ---------------- Footer Prompt ---------------- */
