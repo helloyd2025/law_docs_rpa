@@ -39,7 +39,7 @@ async function selectFile(name) {
     appendLog(showTree(await window.api.file.getTree(name)));
 }
 
-function showTree(node, prefix = "") {
+function showTree(node, prefix='') {
     let str = '\n'.concat(prefix, (node.type === 'd' ? '📁 ' : '📄 '), node.name, '\n');
 
     if(node.type === 'd' && node.children) {
