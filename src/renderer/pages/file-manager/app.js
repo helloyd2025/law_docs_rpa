@@ -39,7 +39,7 @@ async function selectFile(name) {
     await window.api.file.getTree(name); // 추후 활용
 }
 
-async function deleteFile(name, relativePath) {
+async function deleteFile(name, relativePath='') {
     const fullPath = relativePath ? `${relativePath}/${name}` : name;
     await window.api.file.delete(fullPath);
     appendLog(`삭제됨: ${fullPath}`);
@@ -96,7 +96,7 @@ fileFrame.addEventListener("drop", async (e) => {
         if (!entry) {
             // 폴더 미지원 브라우저 대비 (파일만 처리)
             const file = item.getAsFile();
-            if (file) await saveFile(file, "");
+            if (file) await saveFile(file);
             continue;
         }
 
@@ -120,7 +120,7 @@ function getFileFromEntry(entry) {
 }
 
 // 실제 파일 저장 (상대 경로 포함)
-async function saveFile(file, relativePath) {
+async function saveFile(file, relativePath='') {
     const fullPath = relativePath ? `${relativePath}/${file.name}` : file.name;
 
     try {
@@ -141,7 +141,7 @@ async function saveFile(file, relativePath) {
 }
 
 // 디렉토리 재귀 탐색 + 폴더 생성
-async function traverseDirectory(dirEntry, basePath) {
+async function traverseDirectory(dirEntry, basePath='') {
     const currentDirPath = basePath ? `${basePath}/${dirEntry.name}` : dirEntry.name;
 
     // 1. 먼저 이 폴더 자체를 생성 (빈 폴더라도 만들어야 함)
