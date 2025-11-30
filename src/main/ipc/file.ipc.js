@@ -5,6 +5,10 @@ ipcMain.handle('file:list', async (event, path) => {
     return await fileService.list(path);
 });
 
+ipcMain.handle('file:get-tree', async (event, path) => {
+    return await fileService.getTree(path);
+})
+
 ipcMain.handle('file:save', async (event, fileData) => {
     await fileService.save(fileData);
     return { success: true };

@@ -29,17 +29,18 @@ async function refreshFileList(dirPath) {
 }
 
 async function selectFile(name) {
-    if (name === '..') {
-        baseCracks = pwd.split('/');
-        baseCracks.pop();
-        pwd = baseCracks.join('/');
-    } else {
-        pwd = `${pwd}/${name}`;
-    }
-    await refreshFileList(pwd);
+    // if (name === '..') {
+    //     baseCracks = pwd.split('/');
+    //     baseCracks.pop();
+    //     pwd = baseCracks.join('/');
+    // } else {
+    //     pwd = `${pwd}/${name}`;
+    // }
+    // await refreshFileList(pwd);
 
-    const wdText = document.getElementById('file-wd');
-    wdText.textContent = pwd;
+    // const wdText = document.getElementById('file-wd');
+    // wdText.textContent = pwd;
+    await window.api.file.getTree(name); // 추후 활용
 }
 
 async function deleteFile(name, relativePath) {

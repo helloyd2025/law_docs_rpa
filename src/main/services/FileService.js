@@ -18,6 +18,32 @@ class FileService {
         }
     }
 
+    async getTree(targetPath) {
+        let target = null;
+        if (targetPath.indexOf(fixedPath) === 0) {
+            target = targetPath;
+        } else {
+            target = path.join(fixedPath, targetPath);
+        }
+
+        const stat = await fs.stat(target);
+        const tree = {
+            name: path.basename(target),
+            path: target,
+            type: stat.isDirectory() ? 'directory' : 'file'
+        };
+
+        if (stat.isDirectory()) {
+            tree.children = await Promise.all(
+                (await fs.readdir(target)).map(file =>
+                    this.getTree(path.join(target, file))
+                )
+            )
+        }
+        
+        return tree;
+    }
+
     async save({ targetPath, buffer }) {
         const target = path.join(fixedPath, targetPath);
         await fs.mkdir(path.dirname(target), { recursive: true });

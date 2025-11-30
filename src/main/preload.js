@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('api', {
     file: {
         list: (path) => ipcRenderer.invoke('file:list', path),
+        getTree: (path) => ipcRenderer.invoke('file:get-tree', path),
         save: (data) => ipcRenderer.invoke('file:save', data),
         delete: (path) => ipcRenderer.invoke('file:delete', path),
         createDir: (path) => ipcRenderer.invoke('file:create-dir', path),
