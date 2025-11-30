@@ -39,9 +39,6 @@ async function selectFile(name) {
     await refreshFileList(pwd);
 
     const wdText = document.getElementById('file-wd');
-    if (pwd !== '') {
-        wdText.style.paddingLeft = 50;
-    }
     wdText.textContent = pwd;
 }
 
