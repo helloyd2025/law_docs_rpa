@@ -9,9 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadModels() {
     const { models } = await window.api.ollama.list();
     const select = document.getElementById('model-select');
-    select.innerHTML = models.map(m => `<option>${m}</option>`).join('');
-
-    changeModelLogo(models[0]);
+    select.innerHTML = '<option>gemini-2.5-flash';
+    select.innerHTML += models.map(m => `<option>${m}</option>`).join('');
 }
 
 async function refreshFileList(dirPath='') {
@@ -73,15 +72,9 @@ function appendLog(msg) {
 
 // --- 모델 선택 시 로고 자동 변경 ---
 document.getElementById("model-select").addEventListener("change", (e) => {
-    const modelName = e.target.value;
-    changeModelLogo(modelName);
+    let modelName = e.target.value;
     appendLog(`모델 선택: ${modelName}`);
 
-    // 존재하지 않는 경우 기본 이미지 사용
-    // img.onerror = () => { img.src = "assets/deepseek.png"; }
-});
-
-function changeModelLogo(modelName) {
     modelName = modelName.split(":")[0];
     modelName = modelName.indexOf("-") !== -1 ? modelName.split("-")[0] : modelName;
     modelName = modelName.replace(/[0-9]/g, '');
@@ -90,7 +83,10 @@ function changeModelLogo(modelName) {
     const logoPath = `assets/${modelName}.png`;
     const img = document.getElementById("model-logo");
     img.src = `../../../${logoPath}`;
-}
+
+    // 존재하지 않는 경우 기본 이미지 사용
+    img.onerror = () => { img.src = "../../../assets/gemini.png"; }
+});
 
 // ------------------------
 // 드래그 앤 드롭 이벤트 처리
