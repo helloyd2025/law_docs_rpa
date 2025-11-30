@@ -75,6 +75,10 @@ main {
     background: #f0f0f0;
 }
 
+#file-frame li > span:hover {
+    background: #d3d3d3;
+}
+
 /* ---------------- Sidebar ---------------- */
 #sidebar {
     flex: 1;
