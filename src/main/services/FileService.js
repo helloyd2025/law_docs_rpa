@@ -30,7 +30,7 @@ class FileService {
         const tree = {
             name: path.basename(target),
             path: target,
-            type: stat.isDirectory() ? 'directory' : 'file'
+            type: stat.isDirectory() ? 'd' : 'f'
         };
 
         if (stat.isDirectory()) {
