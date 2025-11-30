@@ -15,11 +15,7 @@ async function loadModels() {
 async function refreshFileList(dirPath) {
     const files = await window.api.file.list(dirPath);
     const list = document.getElementById('file-list');
-    if (dirPath === '') {
-        list.innerHTML = '';
-    } else {
-        list.innerHTML = `<li onclick="selectFile('..');">..</li>`;
-    }
+    list.innerHTML = dirPath === '' ? '' : `<li onclick="selectFile('..');">..</li>`;
     list.innerHTML += files.map(f => `
         <li onclick="selectFile('${f}');">
             ${f}
