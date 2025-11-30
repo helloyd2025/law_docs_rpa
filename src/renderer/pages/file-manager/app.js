@@ -36,7 +36,22 @@ async function selectFile(name) {
 
     // const wdText = document.getElementById('file-wd');
     // wdText.textContent = pwd;
-    await window.api.file.getTree(name); // 추후 활용
+    appendLog(showTree(await window.api.file.getTree(name)));
+}
+
+function showTree(node, prefix = "") {
+    let str = '\n'.concat(prefix, (node.type === 'd' ? '📁 ' : '📄 '), node.name, '\n');
+
+    if(node.type === 'd' && node.children) {
+        const lastIndex = node.children.length - 1;
+        node.children.forEach((child, index) => {
+            const isLast = index === lastIndex;
+            const newPrefix = prefix + (isLast ? '     ' : '│   ');
+            str += showTree(child, newPrefix);
+        });
+    }
+
+    return str;
 }
 
 async function deleteFile(name, relativePath='') {
