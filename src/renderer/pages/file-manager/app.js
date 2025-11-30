@@ -40,33 +40,11 @@ async function selectFile(name) {
     appendLog(showTree(await window.api.file.getTree(name)));
 }
 
-function showTree(node, prefix='') {
-    let str = '\n'.concat(prefix, (node.type === 'd' ? '📁 ' : '📄 '), node.name, '\n');
-
-    if(node.type === 'd' && node.children) {
-        const lastIndex = node.children.length - 1;
-        node.children.forEach((child, index) => {
-            const isLast = index === lastIndex;
-            const newPrefix = prefix + (isLast ? '     ' : '│   ');
-            str += showTree(child, newPrefix);
-        });
-    }
-
-    return str;
-}
-
 async function deleteFile(name, relativePath='') {
     const fullPath = relativePath ? `${relativePath}/${name}` : name;
     await window.api.file.delete(fullPath);
     appendLog(`삭제됨: ${fullPath}`);
     refreshFileList(relativePath);
-}
-
-function appendLog(msg) {
-    const log = document.getElementById('log-container');
-    log.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${msg}</div>`;
-    log.scrollTop = log.scrollHeight;
-    window.api.log(msg);
 }
 
 // --- 모델 선택 시 로고 자동 변경 ---
