@@ -15,7 +15,7 @@ ipcMain.handle('file:delete', async (event, path) => {
     return { success: true };
 });
 
-ipcMain.handle('file:createDir', async (event, path) => {
+ipcMain.handle('file:create-dir', async (event, path) => {
     await fileService.createDir(path);
     return { success: true };
 });

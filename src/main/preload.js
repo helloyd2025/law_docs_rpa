@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld('api', {
         list: (path) => ipcRenderer.invoke('file:list', path),
         save: (data) => ipcRenderer.invoke('file:save', data),
         delete: (path) => ipcRenderer.invoke('file:delete', path),
-        createDir: (path) => ipcRenderer.invoke('file:createDir', path),
+        createDir: (path) => ipcRenderer.invoke('file:create-dir', path),
         open: (path) => ipcRenderer.invoke('file:open', path),
     },
     ollama: {
