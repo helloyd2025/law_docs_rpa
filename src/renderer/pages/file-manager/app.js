@@ -18,28 +18,31 @@ async function refreshFileList(dirPath) {
     if (dirPath === '') {
         list.innerHTML = '';
     } else {
-        list.innerHTML = `<li onclick="selectFile('..')">..</li>`;
+        list.innerHTML = `<li onclick="selectFile('..');">..</li>`;
     }
     list.innerHTML += files.map(f => `
-        <li onclick="selectFile('${f}')">
+        <li onclick="selectFile('${f}');">
             ${f}
-            <span onclick="event.stopPropagation(); deleteFile('${f}', '${dirPath}')">✖</span>
+            <span onclick="event.stopPropagation(); deleteFile('${f}', '${dirPath}');">✖</span>
         </li>
     `).join('');
 }
 
-async function selectFile(name) { // 상위 폴더 이동 작업 중
-    // appendLog(name);
+async function selectFile(name) {
     if (name === '..') {
-        pwd = name.split('/').pop().join('/');
+        baseCracks = pwd.split('/');
+        baseCracks.pop();
+        pwd = baseCracks.join('/');
     } else {
         pwd = `${pwd}/${name}`;
     }
-    // appendLog('pwd:'+pwd);
     await refreshFileList(pwd);
 
-    const frameTitle = document.getElementById('file-wd');
-    frameTitle.textContent = pwd === '' ? '작업 리스트' : pwd;
+    const wdText = document.getElementById('file-wd');
+    if (pwd !== '') {
+        wdText.style.paddingLeft = 50;
+    }
+    wdText.textContent = pwd;
 }
 
 async function deleteFile(name, relativePath) {
