@@ -3,7 +3,7 @@ let pwd;
 document.addEventListener('DOMContentLoaded', async () => {
     pwd = '';
     await loadModels();
-    await refreshFileList(pwd);
+    await refreshFileList();
 });
 
 async function loadModels() {
@@ -12,7 +12,7 @@ async function loadModels() {
     select.innerHTML = models.map(m => `<option>${m}</option>`).join('');
 }
 
-async function refreshFileList(dirPath) {
+async function refreshFileList(dirPath='') {
     const files = await window.api.file.list(dirPath);
     const list = document.getElementById('file-list');
     list.innerHTML = dirPath === '' ? '' : `<li onclick="selectFile('..');">..</li>`;
