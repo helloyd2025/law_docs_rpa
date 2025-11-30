@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadModels() {
     const { models } = await window.api.ollama.list();
     const select = document.getElementById('model-select');
-    select.innerHTML = '<option>gemini-2.5-flash';
+    select.innerHTML = '<option>gemini-2.5-flash</option>';
     select.innerHTML += models.map(m => `<option>${m}</option>`).join('');
 }
 
