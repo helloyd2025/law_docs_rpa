@@ -129,7 +129,7 @@ async function saveFile(file, relativePath) {
     try {
         const arrayBuffer = await file.arrayBuffer();
         const result = await window.api.file.save({
-            name: fullPath,
+            targetPath: fullPath,
             buffer: arrayBuffer
         });
 

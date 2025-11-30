@@ -2,11 +2,11 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('api', {
     file: {
-        list: (name) => ipcRenderer.invoke('file:list', name),
+        list: (path) => ipcRenderer.invoke('file:list', path),
         save: (data) => ipcRenderer.invoke('file:save', data),
-        delete: (name) => ipcRenderer.invoke('file:delete', name),
-        createDir: (name) => ipcRenderer.invoke('file:createDir', name),
-        open: (name) => ipcRenderer.invoke('file:open', name),
+        delete: (path) => ipcRenderer.invoke('file:delete', path),
+        createDir: (path) => ipcRenderer.invoke('file:createDir', path),
+        open: (path) => ipcRenderer.invoke('file:open', path),
     },
     ollama: {
         list: () => ipcRenderer.invoke('ollama:list'),

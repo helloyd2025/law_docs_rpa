@@ -1,8 +1,8 @@
 const { ipcMain } = require('electron');
 const fileService = require('../services/FileService');
 
-ipcMain.handle('file:list', async (event, name) => {
-    return await fileService.list(name);
+ipcMain.handle('file:list', async (event, path) => {
+    return await fileService.list(path);
 });
 
 ipcMain.handle('file:save', async (event, fileData) => {
@@ -10,17 +10,17 @@ ipcMain.handle('file:save', async (event, fileData) => {
     return { success: true };
 });
 
-ipcMain.handle('file:delete', async (event, name) => {
-    await fileService.delete(name);
+ipcMain.handle('file:delete', async (event, path) => {
+    await fileService.delete(path);
     return { success: true };
 });
 
-ipcMain.handle('file:createDir', async (event, name) => {
-    await fileService.createDir(name);
+ipcMain.handle('file:createDir', async (event, path) => {
+    await fileService.createDir(path);
     return { success: true };
 });
 
-ipcMain.handle('file:open', async (event, name) => {
-    await fileService.open(name);
+ipcMain.handle('file:open', async (event, path) => {
+    await fileService.open(path);
     return { success: true };
 });
