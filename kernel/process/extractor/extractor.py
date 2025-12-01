@@ -1,6 +1,7 @@
 from utils.nodes.cores import Node
 from utils.info import _doc_type_id
 from google import genai
+import ollama
 
 import json, traceback
 from typing import Callable
@@ -8,12 +9,12 @@ import inspect
 
 
 class LMExtractor(Node):
-    def __init__(self, prompt:str, form_description:dict, model:str, api_key:str=None) -> None:
+    def __init__(self, prompt:str, model:str, form_description:dict=None, api_key:str=None) -> None:
         """
         Args:
             prompt (str): detailed instructions.
-            form_description (dict): specify fields to extract, and describe fields with "type" and "description" keys.
             model (str): model name with explicit version and type.
+            form_description (dict): specify fields to extract, and describe fields with "type" and "description" keys.
             api_key (str): API key. If not required, pass None.
         """
         self.prompt = prompt
@@ -98,10 +99,23 @@ class LMExtractor(Node):
 
 
     def __ask_qwen(self, file_paths:list[str]) -> tuple[list[str], dict]:
-        pass
+        response = ollama.chat(
+            model='qwen2-vl',
+            messages=[
+                {
+                    'role': 'user',
+                    'content': '이게 어떤 문서인지 알려줘.',
+                    'images': ['C:\Users\user\Downloads\form104015497842.pdf']  # 여기에 이미지 경로를 리스트로 넣습니다.
+                }
+            ]
+        )
 
     def __ask_llama(self, file_paths:list[str]) -> tuple[list[str], dict]:
         pass
 
     def __ask_deepseek(self, file_path:list[str]) -> tuple[list[str], dict]:
         pass
+
+if __name__ == '__main__':
+    model = LMExtractor('', 'qwen1-vl')
+    model([])
