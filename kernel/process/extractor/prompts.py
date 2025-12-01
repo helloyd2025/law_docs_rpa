@@ -1,4 +1,4 @@
-_doc_type_id = {"상고이유서": 1}  # Every index is ge 0. (other means exception)
+from utils.info import _doc_type_id
 
 prompt = """
 You are a highly skilled information extraction bot.

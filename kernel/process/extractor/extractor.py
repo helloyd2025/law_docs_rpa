@@ -1,12 +1,13 @@
-from nodes.cores import Node
+from utils.nodes.cores import Node
+from utils.info import _doc_type_id
 from google import genai
 
-import os, json, requests, traceback
-from typing import Callable, Self
+import json, traceback
+from typing import Callable
 import inspect
 
 
-class DocsConverter(Node):
+class LMExtractor(Node):
     def __init__(self, prompt:str, form_description:dict, model:str, api_key:str=None) -> None:
         """
         Args:
@@ -96,8 +97,11 @@ class DocsConverter(Node):
         return response.get("document_types", []), response.get("extracted_data", {})
 
 
-    # def __ask_qwen(file_paths:list[str]) -> tuple[list[str], dict]:
-    #     pass
+    def __ask_qwen(self, file_paths:list[str]) -> tuple[list[str], dict]:
+        pass
 
-    # def __ask_llama(file_paths:list[str]) -> tuple[list[str], dict]:
-    #     pass
+    def __ask_llama(self, file_paths:list[str]) -> tuple[list[str], dict]:
+        pass
+
+    def __ask_deepseek(self, file_path:list[str]) -> tuple[list[str], dict]:
+        pass

@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import traceback
 
+
 class Node:
     """모든 노드의 공통 부모 클래스. 연산자로 연결 가능."""
 
