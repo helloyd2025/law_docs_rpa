@@ -11,8 +11,11 @@ contextBridge.exposeInMainWorld('api', {
     },
     ollama: {
         list: () => ipcRenderer.invoke('ollama:list'),
-        pull: (name) => ipcRenderer.invoke('ollama:pull', name),
+        pull: (model) => ipcRenderer.invoke('ollama:pull', model),
         onPullLog: (callback) => ipcRenderer.on('ollama:pull:log', (e, msg) => callback(msg)),
+        onPullProgress: (callback) => ipcRenderer.on('ollama:pull:progress', (e, p) => callback(p)),
+        onPullComplete: (callback) => ipcRenderer.on('ollama:pull:complete', (e, ok) => callback(ok)),
+        analyze: (content) => ipcRenderer.on('ollama:analyze', content),
     },
     analysis: {
         extract: (files, model) => ipcRenderer.invoke('analysis:extract', files, model),

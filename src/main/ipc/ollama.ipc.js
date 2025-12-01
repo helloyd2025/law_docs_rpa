@@ -2,11 +2,19 @@ const { ipcMain } = require('electron');
 const ollamaService = require('../services/OllamaService');
 
 ipcMain.handle('ollama:list', async () => {
-    const models = await ollamaService.list();
-    return { models };
+    return await ollamaService.list();
 });
 
 ipcMain.handle('ollama:pull', async (event, modelName) => {
-    const success = await ollamaService.pull(modelName, event);
-    return { success };
+    await ollamaService.pull(modelName, event);
+    return { success: true };
+});
+
+ipcMain.handle('ollama:analyze', async (event, { content, docType, model }) => {
+    try {
+        const result = await ollamaService.analyzeLegalDocument(content, docType);
+        return { success: true, data: result };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
 });

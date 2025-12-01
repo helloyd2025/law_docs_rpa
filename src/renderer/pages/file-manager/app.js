@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function loadModels() {
-    const { models } = await window.api.ollama.list();
+    const models = await window.api.ollama.list();
     const select = document.getElementById('model-select');
     select.innerHTML = '<option>gemini-2.5-flash</option>';
     select.innerHTML += models.map(m => `<option>${m}</option>`).join('');
@@ -63,4 +63,10 @@ document.getElementById("model-select").addEventListener("change", (e) => {
 
     // 존재하지 않는 경우 기본 이미지 사용
     img.onerror = () => { img.src = "../../../assets/gemini.png"; }
+});
+
+document.getElementById('prompt-send').addEventListener('click', async (e) => {
+    document.getElementById("main").classList.toggle("fullscreen");
+    const modelSelected = document.getElementById('model-select').value;
+    // await window.api.analysis.extract(['abc', 'def'], modelSelected);
 });
