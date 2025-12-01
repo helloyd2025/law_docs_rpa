@@ -1,9 +1,9 @@
 # env var
 .env
 
-# dependencies
+# dependencies (js, py)
 node_modules/
-engine/
+.law_docs_rpa/
 
 # user path
 docs/
