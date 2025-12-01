@@ -3,6 +3,7 @@
 
 # dependencies
 node_modules/
+engine/
 
 # user path
 docs/
