@@ -66,7 +66,12 @@ document.getElementById("model-select").addEventListener("change", (e) => {
 });
 
 document.getElementById('prompt-send').addEventListener('click', async (e) => {
-    document.getElementById("main").classList.toggle("fullscreen");
+    // document.getElementById("main").classList.toggle("fullscreen");
     const modelSelected = document.getElementById('model-select').value;
-    // await window.api.analysis.extract(['abc', 'def'], modelSelected);
+    const result = await window.api.ollama.analyze({
+        prompt: 'test',
+        filePaths: 'test',
+        model: 'test'
+    });
+    console.log(result);
 });

@@ -49,6 +49,7 @@ class OllamaService {
     async chat(prompt, model='llama3.1', temperature=0.1) {
         await this.startIfNeeded();
         const payload = JSON.stringify({ model, prompt, stream: false, options: { temperature } });
+        console.log('processing...')
 
         const { stdout } = await execPromise(
             `curl -s ${this.api}/generate -d '${payload}'`
@@ -59,20 +60,8 @@ class OllamaService {
     }
 
     // 법률 문서 분석 전용 (작업 예정)
-    async analyze(content, docType) {
-        const prompt = `
-        다음 법률 문서에서 아래 항목을 정확히 추출해. JSON만 반환:
-        - 문서종류 (상고이유서, 민사소장 등)
-        - 사건 번호
-        - 법원명
-        - 당사자명
-        - 청구금액
-        - 제출일자
-
-        문서 내용:
-        ${content.slice(0, 12000)}
-        `;
-
+    async analyze({ prompt, filePaths, model }) {
+        console.log('analyze in...')
         const result = await this.chat(prompt, 'llama3.1:8b', 0.05);
         const jsonMatch = result.match(/\{[\s\S]*\}/);
         return jsonMatch ? JSON.parse(jsonMatch[0]) : { error: '파싱 실패', raw: result };

@@ -5,14 +5,15 @@ ipcMain.handle('ollama:list', async () => {
     return await ollamaService.list();
 });
 
-ipcMain.handle('ollama:pull', async (event, modelName) => {
-    await ollamaService.pull(modelName, event);
+ipcMain.handle('ollama:pull', async (event, model) => {
+    await ollamaService.pull(model, event);
     return { success: true };
 });
 
-ipcMain.handle('ollama:analyze', async (event, { content, docType, model }) => {
+ipcMain.handle('ollama:analyze', async (event, content) => {
     try {
-        const result = await ollamaService.analyzeLegalDocument(content, docType);
+        console.log('good', ":", content)
+        const result = await ollamaService.analyze(content);
         return { success: true, data: result };
     } catch (error) {
         return { success: false, error: error.message };
