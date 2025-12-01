@@ -21,7 +21,6 @@ app.whenReady().then(() => {
     // IPC 핸들러 모듈 자동 등록
     require('./ipc/file.ipc');
     require('./ipc/ollama.ipc');
-    require('./ipc/analysis.ipc');
     require('./ipc/device.ipc')
 
     app.on('activate', () => {

@@ -17,9 +17,6 @@ contextBridge.exposeInMainWorld('api', {
         onPullComplete: (callback) => ipcRenderer.on('ollama:pull:complete', (e, ok) => callback(ok)),
         analyze: (content) => ipcRenderer.on('ollama:analyze', content),
     },
-    analysis: {
-        extract: (files, model) => ipcRenderer.invoke('analysis:extract', files, model),
-    },
     device: {
         getUUID: () => ipcRenderer.invoke('device:get-uuid'),
     },
